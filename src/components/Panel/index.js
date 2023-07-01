@@ -11,15 +11,15 @@ const Panel = ({ onChange }) => {
   const handleGetApiKey = () => {
     const storageApiKey = window.localStorage.getItem('api') || null;
     const storageSheetId = window.localStorage.getItem('sheet_id') || null;
-    
+
     const rawParams = new URL(window.location).searchParams;
     let params = {};
     for (let pair of rawParams.entries()) {
       params[pair[0]] = pair[1];
     }
 
-    if (params.api) apiKeyRef.current = params.api || storageApiKey;
-    if (params.sheet_id) sheetIdRef.current = params.sheet_id || storageSheetId;
+    apiKeyRef.current = params?.api || storageApiKey;
+    sheetIdRef.current = params?.sheet_id || storageSheetId;
 
     handleChangeConfig();
   }
@@ -30,7 +30,7 @@ const Panel = ({ onChange }) => {
   
   const handleChangeConfig = () => {
     if (sheetIdRef.current !== '' && apiKeyRef.current !== '') {
-      
+
       localStorage.setItem('api', apiKeyRef.current);
       localStorage.setItem('sheet_id', sheetIdRef.current);
 
